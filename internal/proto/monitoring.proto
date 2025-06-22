@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package monitoring;
+
+option go_package = "device-monitoring/internal/proto;monitoring";
+
+service Monitoring {
+  rpc GetDevice(DeviceRequest) returns (Device);
+  rpc GetDeviceStatus(DeviceRequest) returns (DeviceStatus);
+  rpc CheckDeviceStatus(DeviceRequest) returns (DeviceStatusResponse);
+}
+
+message DeviceRequest {
+  string id = 1;
+}
+
+message Device {
+  string id = 1;
+  string name = 2;
+  string ip_address = 3;
+  string protocol = 4;
+}
+
+message DeviceStatus {
+  string id = 1;
+  string device_id = 2;
+  string status = 3;
+  string hw_version = 4;
+  string sw_version = 5;
+  string fw_version = 6;
+  string checksum = 7;
+}
+
+message DeviceStatusResponse {
+  string status = 1;
+  string hw_version = 2;
+  string sw_version = 3;
+  string fw_version = 4;
+  string checksum = 5;
+}

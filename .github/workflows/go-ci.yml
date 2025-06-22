@@ -1,0 +1,38 @@
+name: Go CI with Swagger
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+
+    - name: Install dependencies
+      run: go mod tidy
+
+    - name: Install swag CLI
+      run: go install github.com/swaggo/swag/cmd/swag@latest
+
+    - name: Generate Swagger docs
+      run: |
+        export PATH=$PATH:$(go env GOPATH)/bin
+        swag init --parseDependency --parseInternal
+
+    - name: Build
+      run: go build ./...
+
+    - name: Run tests
+      run: go test ./...
