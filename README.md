@@ -43,17 +43,6 @@ docker-compose up --build
 
 ---
 
-## 🧾 Checksum Generator
-
-Standalone utility under `cmd/checksum-generator`:
-
-```bash
-go build -o checksum-bin ./cmd/checksum-generator
-./checksum-bin --input=dev123
-```
-
----
-
 ## 📂 Project Structure
 
 ```
